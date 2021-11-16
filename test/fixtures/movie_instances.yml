@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  movie: one
+  room: one
+  day: 2021-11-16
+  schedule: MyString
+
+two:
+  movie: two
+  room: two
+  day: 2021-11-16
+  schedule: MyString

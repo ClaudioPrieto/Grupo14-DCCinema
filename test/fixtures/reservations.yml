@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  movie_instance: one
+  username: MyString
+
+two:
+  movie_instance: two
+  username: MyString
