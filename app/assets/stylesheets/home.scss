@@ -1,0 +1,30 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    margin: auto;
+}
+
+.col {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+button {
+    flex: auto;
+    margin: auto;
+}
