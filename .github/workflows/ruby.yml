@@ -9,12 +9,17 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      RAILS_ENV: test
+      GEMFILE_RUBY_VERSION: 2.7.2
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby 2.7
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.7.2
+        ruby-version: 2.7.x
+        bundler-cache: true
     - name: Build and test
       run: |
         gem install bundler
