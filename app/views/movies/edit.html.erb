@@ -1,0 +1,12 @@
+<h1>Editar película</h1>
+
+<%= render 'form', movie: @movie %>
+
+<br>
+<div class="w-25 mx-auto text-center">
+<%= link_to 'Ver información', @movie , class: "btn btn-primary btn-block"%>
+</div>
+<br>
+<div class="w-25 mx-auto text-center">
+<%= link_to 'Volver', movies_path, class: "btn btn-primary btn-block"%>
+</div>
