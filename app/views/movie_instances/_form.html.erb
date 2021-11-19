@@ -1,0 +1,39 @@
+<%= form_with(model: movie_instance, local: true) do |form| %>
+  <% if movie_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movie_instance.errors.count, "error") %> prohibited this movie_instance from being saved:</h2>
+
+      <ul>
+        <% movie_instance.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Película</p>
+    <%= form.select :movie_id, options_from_collection_for_select(@movies, 'id', 'name', @movie_instance.movie ? @movie_instance.movie.id : "1" ), {}, { :class => "form-select"} %>
+  </div>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Sala</p>
+    <%= form.select :room_id, options_from_collection_for_select(@rooms, 'id', 'name', @movie_instance.room ? @movie_instance.room.id : "1"), {}, { :class => "form-select"}  %>
+  </div>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Día de la función</p>
+    <div class='text-center'>
+      <%= form.date_select :day%>
+    </div>
+  </div>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Horario</p>
+    <%= form.select :schedule, options_for_select([ "MATINE", "TANDA", "NOCHE" ], @movie_instance.schedule ? @movie_instance.schedule: "1"), {}, { :class => "form-select"}  %>
+  </div>
+
+  <div class="actions w-25 mx-auto text-center">
+    <%= form.submit 'Añadir función', :class => 'btn btn-primary btn-block'%>
+  </div>
+<% end %>
