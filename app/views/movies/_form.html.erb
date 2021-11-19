@@ -1,0 +1,27 @@
+<%= form_with(model: movie, local: true) do |form| %>
+  <% if movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+      <ul>
+        <% movie.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Nombre</p>
+    <%= form.text_field :name , class: "form-control"%>
+  </div>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>URL de la imagen</p>
+    <%= form.text_field :image, class: "form-control" %>
+  </div>
+
+  <div class="actions w-25 mx-auto text-center">
+    <%= form.submit "Guardar", :class => 'btn btn-primary btn-block'%>
+  </div>
+<% end %>

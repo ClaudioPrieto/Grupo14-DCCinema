@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Peliculas</h1>
+
+
+<div class='container'>
+  <div class='row'>
+  <% @movies.each do |movie| %>
+          <div class='col-md-2'>
+            <p><%= movie.name %></p>
+            <%= image_tag movie.image , :class => "index_image" rescue image_tag 'https://previews.123rf.com/images/houbacze/houbacze1709/houbacze170900461/86376823-dise%C3%B1o-plano-rojo-no-encontrado.jpg', :class => "index_image"%>
+            <p><%= link_to 'Ver información', movie %></p>
+            <p><%= link_to 'Editar Película', edit_movie_path(movie) %></p>
+            <p><%= link_to 'Eliminar Película', movie, method: :delete, data: { confirm: 'Estas seguro?' } %></p>
+          </div>
+    <% end %>
+  </div>
+</div>
+
+<br>
+<div class="d-flex justify-content-between w-25 mx-auto">
+<%= link_to 'Nueva Película', new_movie_path, class:"btn btn-success" %>
+<br>
+<%= link_to 'Volver al home', root_path, class:"btn btn-success" %>
+</div>
