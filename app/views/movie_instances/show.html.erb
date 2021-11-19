@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+<h1>Función</h1>
+<p>
+  <strong>Película:</strong>
+  <%= @movie_instance.movie.name %>
+</p>
+
+<div class='movie_div'>
+<%= image_tag @movie_instance.movie.image, :class => "movie_image" rescue image_tag 'https://previews.123rf.com/images/houbacze/houbacze1709/houbacze170900461/86376823-dise%C3%B1o-plano-rojo-no-encontrado.jpg', :class => "movie_image"%>
+</div>
+
+<p>
+  <strong>Sala:</strong>
+  <%= @movie_instance.room.name %>
+</p>
+
+<p>
+  <strong>Día:</strong>
+  <%= @movie_instance.day %>
+</p>
+
+<p>
+  <strong>Horario:</strong>
+  <%= @movie_instance.schedule %>
+</p>
+
+<div class="button_div">
+<%= link_to 'Editar', edit_movie_instance_path(@movie_instance) %> |
+<%= link_to 'Volver', movie_instances_path %>
+</div>
+

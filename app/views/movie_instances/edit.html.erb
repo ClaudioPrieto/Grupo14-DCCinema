@@ -1,0 +1,12 @@
+<h1>Editar Función</h1>
+
+<%= render 'form', movie_instance: @movie_instance %>
+
+<br>
+<div class="w-25 mx-auto text-center">
+<%= link_to 'Ver información', @movie_instance , class: "btn btn-primary btn-block"%>
+</div>
+<br>
+<div class="w-25 mx-auto text-center">
+<%= link_to 'Volver', movie_instances_path, class: "btn btn-primary btn-block"%>
+</div>
