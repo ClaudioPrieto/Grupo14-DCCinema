@@ -1,0 +1,37 @@
+<%= form_with(model: reservation, local: true) do |form| %>
+  <% if reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+      <ul>
+        <% reservation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Función</p>
+    <%= form.select :movie_instance_id, options_from_collection_for_select(@movie_instances, 'id', 'room_id'), {}, { :class => "form-select"} %>
+  </div>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Nombre Usuario</p>
+    <%= form.text_field :username , class: "form-control"%>
+  </div>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Fila</p>
+    <%= form.select :row, options_for_select(@rows), {}, { :class => "form-select"} %>
+  </div>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
+    <p>Columna</p>
+    <%= form.select :cols, options_for_select(@cols), {}, { :class => "form-select", :multiple => true} %>
+  </div>
+
+  <div class="actions w-25 mx-auto text-center">
+    <%= form.submit 'Reservar', :class => 'btn btn-primary btn-block'%>
+  </div>
+<% end %>
