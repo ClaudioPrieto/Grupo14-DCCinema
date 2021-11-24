@@ -27,12 +27,12 @@
 
   <div class="form-outline mb-4 w-25 mx-auto">
     <p>Fila</p>
-    <%= form.select :row, options_for_select(@rows), {}, { :class => "form-select"} %>
+    <%= form.select :row, options_for_select(@rows), {}, { :class => "form-select", :id => "row-selector"} %>
   </div>
 
   <div class="form-outline mb-4 w-25 mx-auto">
     <p>Columna</p>
-    <%= form.select :cols, options_for_select(@cols), {:include_hidden => false}, { :class => "form-select", :multiple => true} %>
+    <%= form.select :cols, options_for_select(@cols), {:include_hidden => false}, { :class => "form-select", :multiple => true, :id => "col-selector"} %>
   </div>
 
   <div class="actions w-25 mx-auto text-center">

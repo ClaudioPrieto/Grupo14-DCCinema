@@ -14,7 +14,6 @@ class ReservationsController < ApplicationController
   def new
     @reservation = Reservation.new
     @movie_instances = MovieInstance.all
-    @seats = Seat.all
     @rows = ["A", "B", "C", "D"]
     @cols = ("1".."12").to_a
     # eliminar rows y cols donde ya hay reserva en @seats
