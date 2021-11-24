@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Funciones</h1>
+
+<div class='container' style="height: 500px">
+  <div class='row' style="height: 500px">
+  <% @reservations.each do |reservation| %>
+          <div class='col-md-2' style="height: 500px">
+            <p><%= reservation.movie_instance.movie.name %></p>
+            <%= image_tag reservation.movie_instance.movie.image , :class => "index_image" rescue image_tag 'https://previews.123rf.com/images/houbacze/houbacze1709/houbacze170900461/86376823-dise%C3%B1o-plano-rojo-no-encontrado.jpg', :class => "index_image"%>
+            <p>Sala: <%= reservation.movie_instance.room.name %></p>
+            <p>Día: <%= reservation.movie_instance.day %></p>
+            <p>Horario: <%= reservation.movie_instance.schedule %></p>
+            <p>Nombre Usuario:<%= reservation.username %></p>
+            <p>Asientos: </p>
+            <p><%= link_to 'Ver información', reservation %></p>
+            <p><%= link_to 'Editar Reserva', edit_reservation_path(reservation) %></p>
+            <p><%= link_to 'Eliminar Reserva', reservation, method: :delete, data: { confirm: 'Estas seguro?' } %></p>
+          </div>
+    <% end %>
+  </div>
+</div>
+
+<br>
+<div class="d-flex justify-content-between w-25 mx-auto">
+<%= link_to 'Nueva Reserva', new_reservation_path, class:"btn btn-success" %>
+<br>
+<%= link_to 'Volver al home', root_path, class:"btn btn-success" %>
+</div>

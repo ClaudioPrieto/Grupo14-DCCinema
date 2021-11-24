@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+<h1>Reserva</h1>
+<p>
+  <strong>Película:</strong>
+  <%= @reservation.movie_instance.movie.name %>
+</p>
+
+<div class='movie_div'>
+<%= image_tag @reservation.movie_instance.movie.image, :class => "movie_image" rescue image_tag 'https://previews.123rf.com/images/houbacze/houbacze1709/houbacze170900461/86376823-dise%C3%B1o-plano-rojo-no-encontrado.jpg', :class => "movie_image"%>
+</div>
+
+<p>
+  <strong>Sala:</strong>
+  <%= @reservation.movie_instance.room.name %>
+</p>
+
+<p>
+  <strong>Día:</strong>
+  <%= @reservation.movie_instance.day %>
+</p>
+
+<p>
+  <strong>Horario:</strong>
+  <%= @reservation.movie_instance.schedule %>
+</p>
+
+<p>
+  <strong>Asientos:</strong>
+  
+</p>
+
+<div class="button_div">
+<%= link_to 'Editar', edit_reservation_path(@reservation) %> |
+<%= link_to 'Volver', reservations_path %>
+</div>
+
