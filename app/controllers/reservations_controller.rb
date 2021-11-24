@@ -26,15 +26,20 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.new
     @movie_instances = MovieInstance.all
     @seats = Seat.all
     @reservation = Reservation.new(reservation_params)
   
+    # create seats reservations
+    for col in params[:reservation][:cols]
+      @seat = Seat.new({row: params[:reservation][:row],
+                column: col})
+      @seat.save
+    end
 
     respond_to do |format|
       if @reservation.save
-        format.html { redirect_to @reservation, notice: "Reservation was successfully created." }
+        format.html { redirect_to '/movie_instances', notice: "Reservation was successfully created." }
         format.json { render :show, status: :created, location: @reservation }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,6 +58,10 @@ class ReservationsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def reservation_params
     params.require(:reservation).permit(:movie_instance_id, :username)
+  end
+
+  def seats_params
+    params.require(:reservation).permit(:row, :cols)
   end
 
   def valid_reservation(all_movies_instances, movie_instance_id, seat)
