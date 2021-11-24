@@ -49,9 +49,9 @@ class MovieInstancesController < ApplicationController
   def update
     @movies = Movie.all
     @rooms = Room.all
-    @movie_instance = MovieInstance.new(movie_instance_params)
-    movies_same_schedule = MovieInstance.where(room_id: @movie_instance.room_id, day: @movie_instance.day,
-                                               schedule: @movie_instance.schedule).where.not(id: @movie_instance.id)
+    movie_instance_comparison = MovieInstance.new(movie_instance_params)
+    movies_same_schedule = MovieInstance.where(room_id: movie_instance_comparison.room_id, day: movie_instance_comparison.day,
+                                               schedule: movie_instance_comparison.schedule).where.not(id: movie_instance_comparison.id)
     unless movies_same_schedule.empty?
       @movie_instance.errors[:base] << "Ya existe una función este dia en el mismo horario y sala"
     end
