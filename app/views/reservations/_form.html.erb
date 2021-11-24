@@ -12,8 +12,12 @@
   <% end %>
 
   <div class="form-outline mb-4 w-25 mx-auto">
+    <%= image_tag("room_layout.png", width: 480) %>
+  </div>
+
+  <div class="form-outline mb-4 w-25 mx-auto">
     <p>Función</p>
-    <%= form.select :movie_instance_id, options_from_collection_for_select(@movie_instances, 'id', 'room_id'), {}, { :class => "form-select"} %>
+    <%= form.select :movie_instance_id, options_from_collection_for_select(@movie_instances, 'id', 'movie_info'), {}, { :class => "form-select"} %>
   </div>
 
   <div class="form-outline mb-4 w-25 mx-auto">
