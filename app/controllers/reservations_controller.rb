@@ -10,12 +10,29 @@ class ReservationsController < ApplicationController
   def show
   end
 
+  def col_data
+    cols = ("1".."12").to_a
+    movie_instance = MovieInstance.find(params[:movie_instance_id])
+    row = params[:row]
+    movie_instance.reservations.each do |reservation|
+      reservation.seats.where(row: row).each do |seat|
+        cols.delete((seat.column.to_i).to_s)
+      end
+    end
+    render json: cols
+  end
+
   # GET /reservations/new
   def new
     @reservation = Reservation.new
-    @movie_instances = MovieInstance.all
+    @movie_instance = MovieInstance.find(params[:movie_instance_id])
     @rows = ["A", "B", "C", "D"]
     @cols = ("1".."12").to_a
+    @movie_instance.reservations.each do |reservation|
+      reservation.seats.where(row: 'A').each do |seat|
+        @cols.delete((seat.column.to_i).to_s)
+      end
+    end
     # eliminar rows y cols donde ya hay reserva en @seats
   end
 
@@ -28,7 +45,8 @@ class ReservationsController < ApplicationController
     @movie_instances = MovieInstance.all
     @seats = Seat.all
     @reservation = Reservation.new(reservation_params)
-  
+    id = params[:movie_instance_id]
+    @reservation.movie_instance_id = id
     # create seats reservations
 
     respond_to do |format|
@@ -37,13 +55,13 @@ class ReservationsController < ApplicationController
           seat = Seat.new(reservation_id: @reservation.id,
                           row: params[:reservation][:row],
                           column: col)
-          print "\n #{seat.row} | #{seat.column} \n"
-          #seat.save
+          p "\n #{seat.row} | #{seat.column} \n"
+          seat.save
         end
         format.html { redirect_to '/movie_instances', notice: "Reservation was successfully created." }
         format.json { render :show, status: :created, location: @reservation }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to '/movie_instances', notice: "No se pudo crear la reserva" }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
@@ -68,7 +86,7 @@ class ReservationsController < ApplicationController
     for movie_instance in all_movies_instances do
       if movie_instance.object_id == movie_instance_id
         check_seat(seat)
-        end
       end
     end
   end
+end

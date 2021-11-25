@@ -11,6 +11,7 @@
             <p>Sala: <%= movie_instance.room.name %></p>
             <p>Día: <%= movie_instance.day %></p>
             <p>Horario: <%= movie_instance.schedule %></p>
+            <p><%= link_to 'Reservar asiento', new_movie_instance_reservation_path(movie_instance), id: movie_instance.movie.name + '_' + movie_instance.day.to_s + '_new_reservation' %></p>
             <p><%= link_to 'Ver información', movie_instance, id: movie_instance.movie.name + '_' + movie_instance.day.to_s + '_info' %></p>
             <p><%= link_to 'Editar Película', edit_movie_instance_path(movie_instance), id: movie_instance.movie.name + '_' + movie_instance.day.to_s + '_edit' %></p>
             <p><%= link_to 'Eliminar Película', movie_instance, method: :delete, data: { confirm: 'Estas seguro?' }, id: movie_instance.movie.name + '_' + movie_instance.day.to_s + '_delete' %></p>
@@ -22,7 +23,6 @@
 <br>
 <div class="d-flex justify-content-between w-25 mx-auto">
 <br>
-<%= link_to 'Nueva Reserva', new_reservation_path, class:"btn btn-success" %>
 <%= link_to 'Nueva Función', new_movie_instance_path, class:"btn btn-success" %>
 <br>
 <%= link_to 'Volver al home', root_path, class:"btn btn-success" %>
