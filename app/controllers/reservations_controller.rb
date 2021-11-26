@@ -10,12 +10,50 @@ class ReservationsController < ApplicationController
   def show
   end
 
+  def col_data
+    cols = ("1".."12").to_a
+    movie_instance = MovieInstance.find(params[:movie_instance_id])
+    row = params[:row]
+    movie_instance.reservations.each do |reservation|
+      reservation.seats.where(row: row).each do |seat|
+        cols.delete((seat.column.to_i).to_s)
+      end
+    end
+    render json: cols
+  end
+
+  def transform_to_int(row, col)
+    t_row = ["A", "B", "C", "D"]
+    t_col = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+
+    [t_row.find_index(row), t_col.find_index(col)]
+  end
+
+  def get_seats(instance_id)
+    occ_seats = Seat.joins(:reservation).where("reservations.movie_instance_id = ?", instance_id)
+    p occ_seats
+    seats = [["A", ("1".."12").to_a], ["B", ("1".."12").to_a], ["C", ("1".."12").to_a], ["D", ("1".."12").to_a]]
+
+    occ_seats.each do |occ_seat|
+      position = transform_to_int(occ_seat.row, occ_seat.column)
+      seats[position[0]][1][position[1]] = false
+    end
+    p seats
+    seats
+  end
+
   # GET /reservations/new
   def new
     @reservation = Reservation.new
-    @movie_instances = MovieInstance.all
+    @movie_instance = MovieInstance.find(params[:movie_instance_id])
     @rows = ["A", "B", "C", "D"]
     @cols = ("1".."12").to_a
+    @seats = get_seats(params[:movie_instance_id])
+    @movie_instance.reservations.each do |reservation|
+      reservation.seats.where(row: 'A').each do |seat|
+        @cols.delete((seat.column.to_i).to_s)
+      end
+    end
     # eliminar rows y cols donde ya hay reserva en @seats
   end
 
@@ -28,7 +66,8 @@ class ReservationsController < ApplicationController
     @movie_instances = MovieInstance.all
     @seats = Seat.all
     @reservation = Reservation.new(reservation_params)
-  
+    id = params[:movie_instance_id]
+    @reservation.movie_instance_id = id
     # create seats reservations
 
     respond_to do |format|
@@ -37,13 +76,13 @@ class ReservationsController < ApplicationController
           seat = Seat.new(reservation_id: @reservation.id,
                           row: params[:reservation][:row],
                           column: col)
-          print "\n #{seat.row} | #{seat.column} \n"
-          #seat.save
+          p "\n #{seat.row} | #{seat.column} \n"
+          seat.save
         end
         format.html { redirect_to '/movie_instances', notice: "Reservation was successfully created." }
         format.json { render :show, status: :created, location: @reservation }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to '/movie_instances', notice: "No se pudo crear la reserva" }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
@@ -68,7 +107,7 @@ class ReservationsController < ApplicationController
     for movie_instance in all_movies_instances do
       if movie_instance.object_id == movie_instance_id
         check_seat(seat)
-        end
       end
     end
   end
+end
