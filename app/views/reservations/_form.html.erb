@@ -11,32 +11,52 @@
     </div>
   <% end %>
 
-  <div class="form-outline mb-4 w-25 mx-auto">
-    <%= image_tag("room_layout.png", width: 480) %>
-  </div>
+  <div class="container w-100">
+    <div class="container w-50 mx-auto bg-light p-3 rounded">
+      <% @seats.each do |row| %>
+        <div class="row">
+          <div class="col-sm mb-4 m-1 rounded text-center"><%= row[0] %></div>
+          <% row[1].each do |col| %>
+            <% if col %>
+              <div class="col-sm bg-success mb-4 m-1 rounded text-center">
+                <%= col %>
+              </div>
+            <% else %>
+              <div class="col-sm bg-danger mb-4 m-1 rounded text-center">
+                X
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="row justify-content-center">
+        <div class="col-md-10 bg-info text-center w-5 mb-4 rounded">Pantalla</div>
+      </div>
+    </div>
 
-  <div class="form-outline mb-4 w-25 mx-auto">
-    <p>Función</p>
-    <p><%=@movie_instance.movie_info%></p>
-  </div>
+    <div class="form-outline mb-4 w-25 mx-auto">
+      <p>Función</p>
+      <p><%=@movie_instance.movie_info%></p>
+    </div>
 
-  <div class="form-outline mb-4 w-25 mx-auto">
-    <p>Nombre Usuario</p>
-    <%= form.text_field :username , class: "form-control"%>
-  </div>
+    <div class="form-outline mb-4 w-25 mx-auto">
+      <p>Nombre Usuario</p>
+      <%= form.text_field :username , class: "form-control"%>
+    </div>
 
-  <div class="form-outline mb-4 w-25 mx-auto">
-    <p>Fila</p>
-    <%= form.select :row, options_for_select(@rows), {}, { :class => "form-select", :id => "row-selector"} %>
-  </div>
+    <div class="form-outline mb-4 w-25 mx-auto">
+      <p>Fila</p>
+      <%= form.select :row, options_for_select(@rows), {}, { :class => "form-select", :id => "row-selector"} %>
+    </div>
 
-  <div class="form-outline mb-4 w-25 mx-auto">
-    <p>Columna</p>
-    <%= form.select :cols, options_for_select(@cols), {:include_hidden => false}, { :class => "form-select", :multiple => true, :id => "col-selector"} %>
-  </div>
+    <div class="form-outline mb-4 w-25 mx-auto">
+      <p>Columna</p>
+      <%= form.select :cols, options_for_select(@cols), {:include_hidden => false}, { :class => "form-select", :multiple => true, :id => "col-selector"} %>
+    </div>
 
-  <div class="actions w-25 mx-auto text-center">
-    <%= form.submit 'Reservar', :class => 'btn btn-primary btn-block'%>
+    <div class="actions w-25 mx-auto text-center">
+      <%= form.submit 'Reservar', :class => 'btn btn-primary btn-block'%>
+    </div>
   </div>
 <% end %>
 <script>

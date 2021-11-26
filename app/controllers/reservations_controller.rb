@@ -22,12 +22,33 @@ class ReservationsController < ApplicationController
     render json: cols
   end
 
+  def transform_to_int(row, col)
+    t_row = ["A", "B", "C", "D"]
+    t_col = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+
+    [t_row.find_index(row), t_col.find_index(col)]
+  end
+
+  def get_seats(instance_id)
+    occ_seats = Seat.joins(:reservation).where("reservations.movie_instance_id = ?", instance_id)
+    p occ_seats
+    seats = [["A", ("1".."12").to_a], ["B", ("1".."12").to_a], ["C", ("1".."12").to_a], ["D", ("1".."12").to_a]]
+
+    occ_seats.each do |occ_seat|
+      position = transform_to_int(occ_seat.row, occ_seat.column)
+      seats[position[0]][1][position[1]] = false
+    end
+    p seats
+    seats
+  end
+
   # GET /reservations/new
   def new
     @reservation = Reservation.new
     @movie_instance = MovieInstance.find(params[:movie_instance_id])
     @rows = ["A", "B", "C", "D"]
     @cols = ("1".."12").to_a
+    @seats = get_seats(params[:movie_instance_id])
     @movie_instance.reservations.each do |reservation|
       reservation.seats.where(row: 'A').each do |seat|
         @cols.delete((seat.column.to_i).to_s)
