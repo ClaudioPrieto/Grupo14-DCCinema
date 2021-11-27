@@ -31,14 +31,12 @@ class ReservationsController < ApplicationController
 
   def get_seats(instance_id)
     occ_seats = Seat.joins(:reservation).where("reservations.movie_instance_id = ?", instance_id)
-    p occ_seats
     seats = [["A", ("1".."12").to_a], ["B", ("1".."12").to_a], ["C", ("1".."12").to_a], ["D", ("1".."12").to_a]]
 
     occ_seats.each do |occ_seat|
       position = transform_to_int(occ_seat.row, occ_seat.column)
       seats[position[0]][1][position[1]] = false
     end
-    p seats
     seats
   end
 
@@ -76,7 +74,6 @@ class ReservationsController < ApplicationController
           seat = Seat.new(reservation_id: @reservation.id,
                           row: params[:reservation][:row],
                           column: col)
-          p "\n #{seat.row} | #{seat.column} \n"
           seat.save
         end
         format.html { redirect_to '/movie_instances', notice: "Reservation was successfully created." }
