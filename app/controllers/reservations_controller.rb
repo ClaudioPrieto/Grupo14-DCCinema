@@ -64,6 +64,9 @@ class ReservationsController < ApplicationController
     @movie_instances = MovieInstance.all
     @seats = Seat.all
     @reservation = Reservation.new(reservation_params)
+    if @reservation.username == ''
+      @reservation.errors[:base] << "El nombre de usuario no puede ser vacio"
+    end
     id = params[:movie_instance_id]
     @reservation.movie_instance_id = id
     # create seats reservations
