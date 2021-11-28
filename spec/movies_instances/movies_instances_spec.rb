@@ -23,7 +23,7 @@ RSpec.describe 'Movies', type: :system do
         visit 'movie_instances/new'
         select "Shingeki no Kyojin", :from => "movie_instance_movie_id"
         select 1 , :from => "movie_instance_room_id"
-        select "2021", :from => "movie_instance_day_1i"
+        select "2022", :from => "movie_instance_day_1i"
         select "November", :from => "movie_instance_day_2i"
         select "23", :from => "movie_instance_day_3i"
         select "MATINE", :from => "movie_instance_schedule"
@@ -42,7 +42,7 @@ RSpec.describe 'Movies', type: :system do
         visit '/movie_instances/new'
         select "Spiderman", :from => "movie_instance_movie_id"
         select 1 , :from => "movie_instance_room_id"
-        select "2021", :from => "movie_instance_day_1i"
+        select "2022", :from => "movie_instance_day_1i"
         select "November", :from => "movie_instance_day_2i"
         select "24", :from => "movie_instance_day_3i"
         select "MATINE", :from => "movie_instance_schedule"
@@ -50,23 +50,23 @@ RSpec.describe 'Movies', type: :system do
         expect(page).to have_content('Movie instance was successfully created.')
         expect(page).to have_content('Película: Spiderman')
         expect(page).to have_content('Sala: 1')
-        expect(page).to have_content('Día: 2021-11-24')
+        expect(page).to have_content('Día: 2022-11-24')
         expect(page).to have_content('Horario: MATINE')
     end
 
     it 'see info of movie instance' do
         visit '/movie_instances'
-        click_link 'Shingeki no Kyojin_2021-11-23_info'
+        click_link 'Shingeki no Kyojin_2022-11-23_info'
         expect(page).to have_content('Película: Shingeki no Kyojin')
         expect(page).to have_content('Sala: 1')
-        expect(page).to have_content('Día: 2021-11-23')
+        expect(page).to have_content('Día: 2022-11-23')
         expect(page).to have_content('Horario: MATINE')
     end
 
     it 'delete created movie instance' do
         visit '/movie_instances'
         accept_confirm do
-            click_link 'Shingeki no Kyojin_2021-11-23_delete'
+            click_link 'Shingeki no Kyojin_2022-11-23_delete'
         end
         expect(page).to have_content('Movie instance was successfully destroyed.')
         expect(page).not_to have_content('Shingeki no Kyojin')
@@ -74,10 +74,10 @@ RSpec.describe 'Movies', type: :system do
 
     it 'edit created movie instance' do
         visit '/movie_instances'
-        click_link 'Shingeki no Kyojin_2021-11-23_edit'
+        click_link 'Shingeki no Kyojin_2022-11-23_edit'
         select "Shingeki no Kyojin", :from => "movie_instance_movie_id"
         select 2 , :from => "movie_instance_room_id"
-        select "2021", :from => "movie_instance_day_1i"
+        select "2022", :from => "movie_instance_day_1i"
         select "December", :from => "movie_instance_day_2i"
         select "25", :from => "movie_instance_day_3i"
         select "TANDA", :from => "movie_instance_schedule"
@@ -85,7 +85,7 @@ RSpec.describe 'Movies', type: :system do
         expect(page).to have_content('Movie instance was successfully updated.')
         expect(page).to have_content('Película: Shingeki no Kyojin')
         expect(page).to have_content('Sala: 2')
-        expect(page).to have_content('Día: 2021-12-25')
+        expect(page).to have_content('Día: 2022-12-25')
         expect(page).to have_content('Horario: TANDA')
     end
 
@@ -93,7 +93,7 @@ RSpec.describe 'Movies', type: :system do
         visit '/movie_instances/new'
         select "Spiderman", :from => "movie_instance_movie_id"
         select 1 , :from => "movie_instance_room_id"
-        select "2021", :from => "movie_instance_day_1i"
+        select "2022", :from => "movie_instance_day_1i"
         select "November", :from => "movie_instance_day_2i"
         select "23", :from => "movie_instance_day_3i"
         select "MATINE", :from => "movie_instance_schedule"
@@ -107,17 +107,17 @@ RSpec.describe 'Movies', type: :system do
         visit '/movie_instances/new'
         select "Spiderman", :from => "movie_instance_movie_id"
         select 1 , :from => "movie_instance_room_id"
-        select "2021", :from => "movie_instance_day_1i"
+        select "2022", :from => "movie_instance_day_1i"
         select "November", :from => "movie_instance_day_2i"
         select "24", :from => "movie_instance_day_3i"
         select "MATINE", :from => "movie_instance_schedule"
         click_button 'Añadir función'
 
         visit '/movie_instances'
-        click_link 'Spiderman_2021-11-24_edit'
+        click_link 'Spiderman_2022-11-24_edit'
         select "Spiderman", :from => "movie_instance_movie_id"
         select 1 , :from => "movie_instance_room_id"
-        select "2021", :from => "movie_instance_day_1i"
+        select "2022", :from => "movie_instance_day_1i"
         select "November", :from => "movie_instance_day_2i"
         select "23", :from => "movie_instance_day_3i"
         select "MATINE", :from => "movie_instance_schedule"

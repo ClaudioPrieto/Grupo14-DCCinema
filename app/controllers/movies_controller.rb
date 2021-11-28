@@ -22,9 +22,14 @@ class MoviesController < ApplicationController
   # POST /movies or /movies.json
   def create
     @movie = Movie.new(movie_params)
+    movies_same_name = Movie.where(name: @movie.name).where.not(id: @movie.id)
+
+    unless movies_same_name.empty?
+      @movie.errors[:base] << "Ya existe una película con este nombre"
+    end
 
     respond_to do |format|
-      if @movie.save
+      if movies_same_name.empty? && @movie.save
         format.html { redirect_to @movie, notice: "Movie was successfully created." }
         format.json { render :show, status: :created, location: @movie }
       else
@@ -36,8 +41,13 @@ class MoviesController < ApplicationController
 
   # PATCH/PUT /movies/1 or /movies/1.json
   def update
+    movie_comparison = Movie.new(movie_params)
+    movies_same_name = Movie.where(name: movie_comparison.name).where.not(id: @movie.id)
+    unless movies_same_name.empty?
+      @movie.errors[:base] << "Ya existe una película con este nombre"
+    end
     respond_to do |format|
-      if @movie.update(movie_params)
+      if movies_same_name.empty? && @movie.update(movie_params)
         format.html { redirect_to @movie, notice: "Movie was successfully updated." }
         format.json { render :show, status: :ok, location: @movie }
       else
